@@ -22,3 +22,8 @@ body {
 .text-bright {
   color: var(--mainBlue)
 }
+
+.b{
+  background-color: red;
+  color: white;
+}
