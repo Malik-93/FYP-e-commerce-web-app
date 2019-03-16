@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Route, Switch} from 'react-router-dom';
-import Navigation from './components/Layout/Navbar';
-import Footer from './components/Footer';
-import Mens from './components/Collection/Mens';
+import Navigation from './components/Nav';
+import Details from './components/Details';
+import Cart from './components/Cart';
+import Default from './components/404';
+import { Route, Switch } from 'react-router-dom';
+import {Provider} from 'react-redux';
+import store from './Redux/Store';
+import FirstSlider from './components/Sliders/First-Slider';
+import Model from './components/Model';
+import MensCollection from './components/Collections/Mens-collection';
+import WomensCollection from './components/Collections/Womens-collection';
+import KidsCollection from './components/Collections/Kids-collection';
 class App extends Component {
-  render() {
-    return ( 
-      <div className='App'>
-       <Navigation />
-      <Switch>
-      <Route exact path='/' component={App}></Route>
-       <Route path='/details' component={Mens}></Route> 
-      </Switch>
-       {<br />}
-       <Footer />
-      </div>
 
-      );
+  render() {
+    return (
+      <Provider store = {store}>
+      <React.Fragment>
+        <Navigation />
+        {<br />}
+        <Switch>
+          <Route exact path='/' component={FirstSlider}></Route>
+          <Route path='/details' component={Details}></Route>
+          <Route path='/cart' component={Cart}></Route>
+          <Route path='/model' component={Model}></Route>
+          <Route path='/collection/mens' component={MensCollection} />
+          <Route path='/collection/womens' component={WomensCollection} />
+          <Route path='/collection/kids' component={KidsCollection} />
+          <Route component={Default}></Route>
+        </Switch>
+      </React.Fragment>
+      </Provider>
+    );
   }
 }
+
 export default App;

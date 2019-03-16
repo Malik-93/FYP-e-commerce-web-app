@@ -22,8 +22,7 @@ body {
 .text-bright {
   color: var(--mainBlue)
 }
-
-.b{
-  background-color: red;
-  color: white;
+.my-card {
+  display: flex;
+  flex-direction: row;
 }
