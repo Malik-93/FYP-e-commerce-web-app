@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getKidsProduct } from '../../../src/Redux/Actions/action';
 import {Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-
+import img from './images/kids.jpg';
 class KidsCollection extends Component {
   
   state = {
@@ -32,7 +32,7 @@ class KidsCollection extends Component {
     return (
       <div>
         <h1>Hello from Kids Collection</h1>
-        <div>
+        <div className='my-container'>
         {
           this.state.products.map((product) => {
             return (
@@ -40,7 +40,7 @@ class KidsCollection extends Component {
                 <span>ID: {product._id}</span>
                   {console.log("mens check", product)}
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+                    <Card.Img variant="top" src={img} />
                     <Card.Body>
                       <Card.Title><b>Title:</b> {product.title}</Card.Title>
                       <Card.Text>
@@ -52,8 +52,7 @@ class KidsCollection extends Component {
                       <ListGroupItem><span><b>Price:</b></span> $ {product.price}</ListGroupItem>
                     </ListGroup>
                     <Card.Body>
-                    <Link to="/"> <button>Continue Shoping</button> </Link>
-                      <Link to="/cart"><button>Go to Cart</button> </Link> 
+                      <Link to="/cart"><button>Add to Cart</button> </Link> 
                      </Card.Body>
                     <Card.Footer>
                      <p className="text-muted">Last Update: <span>{new Date().toLocaleTimeString()}</span></p>

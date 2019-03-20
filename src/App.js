@@ -13,6 +13,10 @@ import Model from './components/Model';
 import MensCollection from './components/Collections/Mens-collection';
 import WomensCollection from './components/Collections/Womens-collection';
 import KidsCollection from './components/Collections/Kids-collection';
+import Admin from './components/Forms/Admin';
+import LogIn from '../src/components/Forms/Login';
+import SignUp from '../src/components/Forms/SignUp';
+
 class App extends Component {
 
   render() {
@@ -23,12 +27,15 @@ class App extends Component {
         {<br />}
         <Switch>
           <Route exact path='/' component={FirstSlider}></Route>
-          <Route path='/details' component={Details}></Route>
+          <Route path='/details/:id' component={Details}></Route>
           <Route path='/cart' component={Cart}></Route>
           <Route path='/model' component={Model}></Route>
           <Route path='/collection/mens' component={MensCollection} />
           <Route path='/collection/womens' component={WomensCollection} />
           <Route path='/collection/kids' component={KidsCollection} />
+          <Route path='/admin' component={Admin} />
+          <Route path='/signup' component={SignUp} />
+          <Route path='/login' component={LogIn} />
           <Route component={Default}></Route>
         </Switch>
       </React.Fragment>

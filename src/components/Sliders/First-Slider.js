@@ -6,6 +6,7 @@ import img3 from './images/img-3.jpg';
 import { Link } from 'react-router-dom'
 import Layout from '../Layout';
 import { Container, Row, Col } from 'reactstrap';
+import { Nav, Navbar, Button } from 'react-bootstrap';
 class FirstSlider extends Component {
   constructor(props, context) {
     super(props, context);
@@ -32,7 +33,24 @@ class FirstSlider extends Component {
       <div>
         <Container>
         <Row>
-          <Col style={{backgroundColor: 'grey'}}>This is Header bar</Col>
+          <Col>
+          <Nav className="mr-auto header-bar" >
+          <div></div>        
+            <Link to='/collection/mens'><Button variant="outline-success">
+            <span className="mr-2">
+            </span>Mens</Button></Link>
+          <div><i className="fas fa-female"></i></div><br />                    
+            <Link to='/collection/womens'><Navbar.Brand style={{color: 'white'}}>Womens </Navbar.Brand></Link>
+          <div><i className="fas fa-baby"></i></div><br />        
+            <Link to='/collection/kids' ><Navbar.Brand style={{color: 'white'}}>Kids</Navbar.Brand></Link>
+            <Button variant='outline-success'>
+                <span className='mr-2'>
+                  <i className="fab fa-opencart"></i>
+                </span>
+                my cart
+              </Button>
+            </Nav>
+          </Col>
         </Row>
         </Container>
 {<br />}

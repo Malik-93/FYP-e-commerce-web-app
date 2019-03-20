@@ -66,41 +66,6 @@ addProduct = () => {
         .catch((error) => console.log(error))
 }
 
-// getMensCollection = () => {
-
-//   fetch('http://localhost:8000/getDbmens')
-//       .then((res) => res.text())
-//       .then((product) => {
-//             console.log("DB Product", product)
-//           this.props.addToDb(product)
-//       })
-//       .catch((error) => console.log(error))
-// }
-
-// getKidsCollection = () => {
-
-//   fetch('http://localhost:8000/kids')
-//       .then((res) => res.text())
-//       .then((product) => {
-//           console.log("DB Product", product)
-//           this.props.addToDb(product.data)
-//       })
-//       .catch((error) => console.log(error))
-
-// }
-
-// getWomensCollection = () => {
-
-//   fetch('http://localhost:8000/womens')
-//       .then((res) => res.text())
-//       .then((product) => {
-//           console.log("DB Product", product)
-//           this.props.addToDb(product.data)            
-//       })
-//       .catch((error) => console.log(error))
-
-// }
-
 render() {
     console.log('Form Render Data from store', this.props.products)  
 
@@ -127,9 +92,6 @@ render() {
         <input type='button' value='In Cart' onClick={this.handleCart}></input>
     </form>
     <button onClick={this.addProduct}>Add Products</button><br />
-    <button onClick={this.getMensCollection}>Get Mens Collection</button><br />
-    <button onClick={this.getWomensCollection}>Get Womens Collection</button><br />
-    <button onClick={this.getKidsCollection}>Get Kids Collection</button>
       </div>
         
       </div>

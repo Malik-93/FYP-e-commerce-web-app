@@ -3,7 +3,6 @@ import { getAllProduct } from '../Redux/Actions/action';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import Product from './Product';
-import ProductForm from './Form';
 import MensCollection from '../components/Collections/Mens-collection';
 import WomensCollection from '../components/Collections/Womens-collection';
 import KidsCollection from '../components/Collections/Kids-collection';
@@ -21,15 +20,20 @@ componentDidMount() {
       console.log("All Products of DataBase", products)
       this.props.dispatch( getAllProduct(products) )
   })
+  .then( () =>  {
+    this.setProducts()
+    console.log('cdm state**/*/*/', this.state)
+  } 
+   )
   .catch(err => console.log(err))
 }
 
-componentWillReceiveProps = (nextProps) => {
-  console.log('nextprops', nextProps.products.data)
-  this.setState({
-    products: nextProps.products.data
-  })
-}
+// componentWillReceiveProps = (nextProps) => {
+//   console.log('nextprops', nextProps.products.data)
+//   this.setState({
+//     products: nextProps.products.data
+//   })
+// }
   
 
   // componentDidMount() {
@@ -42,19 +46,19 @@ componentWillReceiveProps = (nextProps) => {
   //   console.log('***Add To Cart Dispatcher***: ', this.props.addToCart)
   // }
 
-//   setProducts = () => {
-//     let products = [];
-//     console.log('SetProducts func***', this.props.products)
-//     this.props.products.forEach(item => {
-//       const singleItem = {...item }; //What does it mean
-//       console.log('Single Item*****', singleItem)
-//       products = [...products, singleItem];
-//       console.log('set Product final produtss*******', products)
-//     });
-//     this.setState(() => {
-//       return { products};
-//     })
-//   }
+  setProducts = () => {
+    let products = [];
+    console.log('SetProducts func***', this.props.products)
+    this.props.products.forEach(item => {
+      const singleItem = {...item }; //What does it mean
+      console.log('Single Item*****', singleItem)
+      products = [...products, singleItem];
+      console.log('set Product final produtss*******', products)
+    });
+    this.setState(() => {
+      return { products};
+    })
+  }
   getItem = id => {
   const product = this.state.products.find(item => item.id === id);
   return product;
@@ -80,12 +84,10 @@ this.setState(() => {
   render() {
     return (
       <div>
-    <b>Data from from server:</b>
     <hr />
     <hr />
    <div>
-   <ProductForm /> 
-    {console.log('render*******', this.state.cart)}
+    {console.log('render*******', this.props.products)}
       <div className="py-5">
         <div className="container my-card">
 

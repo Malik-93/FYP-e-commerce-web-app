@@ -12,3 +12,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.my-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.header-bar{
+  background-color: grey;
+  border-radius: 2px;
+}
+.fas .fa-male{
+
+}

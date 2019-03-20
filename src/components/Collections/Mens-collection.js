@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { getMensProduct } from '../../../src/Redux/Actions/action';
 import {Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import img from './images/men.jpg';
+// import blob from 'blob';
+
 class MensCollection extends Component {
 
   state = {
@@ -26,21 +29,77 @@ class MensCollection extends Component {
       products: nextProps.products.data
     })
   }
+ 
+//   validateResponse  (response)  {
+//     if (!response.ok) {
+//       throw Error(response.statusText);
+//     }
+//     return response;
+//   }
+  
+// readResponseAsBlob = (response) => {
+//     return response.blob();
+//   }
+  
+  
+// logResult = (result) => {
+//   console.log(result);
+// }
 
+// logError = (error) => {
+//   console.log('Looks like there was a problem:', error);
+// }
 
+// showImage = (responseAsBlob) => {
+//   const imgContainer = document.getElementById('img-container');
+//   const imgElm = document.createElement('img')
+//   imgContainer.appendChild(imgElm)
+//   const imgUrl = URL.createObjectURL(responseAsBlob)
+//   imgElm.src= imgUrl
+// }
+
+// fetchImage = () => {
+//   fetch('http://localhost:8000/image/e8ba91cb61b4380cf4f09e686fb8cfaf.png')
+//   .then(validate => {
+//     if(!validate.ok) {
+//       throw Error (validate.statusText)
+//     }
+//   }) // 2
+//   .then(res => res.blob() ) // 3
+//   .then(myBlob => {
+//     const imgContainer = document.getElementById('img-container');
+//     const imgElm = document.createElement('img')
+//     imgContainer.appendChild(imgElm)
+//     const imgUrl = URL.createObjectURL(myBlob)
+//     imgElm.src= imgUrl
+//   }) // 4
+//   .catch(err => {
+//     console.log("ERROR", err)
+//   });
+// }
+
+// const imgButton = document.getElementById('img-btn');
+// imgButton.addEventListener('click', fetchImage);
+
+// handleCount = () => {
+//   const item = this.state.products.map(())
+// }
   render() {
     return (
       <div>
         <h1>Hello from Mens Collection</h1>
-        <div>
+        <button id="img-btn" onClick={this.fetchImage}>Fetch image</button>
+        <section className="img-container" id="img-container">
+
+        </section>
+        <div className="my-container">
           {
             this.state.products.map((product) => {
               return (
                 <div key={Math.random()}>
                   <span>ID: {product._id}</span>
-                  {console.log("mens check", product)}
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+                  <Link to={'/details/'+product._id}><Card.Img variant="top" src={img} /></Link> 
                     <Card.Body>
                       <Card.Title><b>Title:</b> {product.title}</Card.Title>
                       <Card.Text>
@@ -52,8 +111,8 @@ class MensCollection extends Component {
                       <ListGroupItem><span><b>Price:</b></span> $ {product.price}</ListGroupItem>
                     </ListGroup>
                     <Card.Body>
-                    <Link to="/collection/mens"> <button>Continue Shoping</button> </Link>
-                      <Link to="/cart"><button>Go to Cart</button> </Link>                  
+                  <Link to={'/details/'+product._id }><button>Go to details</button> </Link>                
+                    <button>Add To Cart</button>                  
                         </Card.Body>
                     <Card.Footer>
                      <p className="text-muted">Last Update: <span>{new Date().toLocaleTimeString()}</span></p>
