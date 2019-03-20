@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        Title: <input type="text" id="title">
+        Price: <input type="number" id="price"><br />
+        Company: <input type="text" id="company">
+        Info: <input type="text" id="info"><br />
+        Count: <input type="number" id="count">
+        Total: <input type="number" id="total"><br />
+        inCart: <input type="text" id="incart">
+        <input type="submit" value="Check" />
+    </form><hr />
+    <div>
+        <button onclick="addProduct()">Add Product</button>
+        <button onclick="getProducts()">Get Products</button><br /><hr />
+        <button onclick="updateProducts()">Update Products</button>
+        <button onclick="getAllProducts()">Get All Prudcts</button>
+        <button onclick="getAllImages()">Get All Images</button>
+        <button id="img-btn">Fetch image</button>
+
+        <hr>
+        <button onclick="createFile()">Create File</button>
+        <button onclick="getData()">Read File</button>
+        <button onclick="deleteFile()">Delete File</button>
+        <hr>
+        Data from server:
+        <div id="demo"></div>
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col md-6 m-auto">
+                    <div class="text-center display-4 my-4">Mongo File Uploads</div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="custom-file mb-3">
+                <input type="file" name="myImage" id="myImage" />
+            <label for="file" class="custom-file-label"></label>
+            <input type="submit" value="Upload Picture" class="btn btn-primary">
+            </div>
+        </form>
+        <hr />
+        <h3>Image is here:</h3>
+        <hr />
+        <section class="img-container" id="img-container">
+
+        </section>
+  
+        <form action="users/signup" method="post">
+            <div>
+                <label>Email:</label>
+                <input type="text" name="email" />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" />
+            </div>
+            <div>
+                <input type="submit" value="Sign Up" />
+            </div>
+        </form>
+
+        <form action="/users/login" method="post">
+            <div>
+                <label>Email:</label>
+                <input type="text" name="email" />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" />
+            </div>
+            <div>
+                <input type="submit" value="Log In" />
+            </div>
+        </form>
+
+            <form action="users/dashboard" method="post">
+            <div>
+                <label>Upload File:</label>
+                <input type="file" name="file" />
+            </div>
+            </form>
+
+
+    </div>
+    <script>
+
+function addProduct() {
+
+var options = {
+    method: 'POST',
+    body: JSON.stringify({
+        title: title.value,
+        price: price.value,
+        company: company.value,
+        info: info.value,
+        count: count.value,
+        total: total.value,
+        inCart: incart.value
+    }),
+    headers: {
+        'Content-Type': 'application/json'
+    }
+
+}
+fetch('http://localhost:8000/addProduct', options)
+    .then((res) => res.json() )
+    .then((message) => console.log(message))
+    .catch((error) => console.log(error))
+}
+
+
+
+            function getProducts() {
+
+            fetch('http://localhost:8000/getDbProducts')
+                .then((res) => res.json() )
+                .then((products) => {
+                    console.log("DB PRoducts in html", products)
+                    // demo.innerHTML = ""
+                    // for (var user of users) {
+                    //     demo.innerHTML += `<li>My name is ${user.username} and password is ${user.password}</li>`
+                    // }
+                })
+                .catch((error) => console.log(error))
+
+        }
+
+function updateProducts () {
+    fetch("http://localhost:8000/update")
+    .then((res) => res.json())
+    .then((product) => {console.log(product)
+    document.getElementById("demo").innerText = product.data
+    })
+    .catch((err) => console.log(err))
+}
+
+function getAllProducts () {
+    fetch("http://localhost:8000/allProducts")
+    .then(res => res.json() )
+    .then(products => {
+        console.log("All Products of DataBase", products)
+    })
+    .catch(err => console.log(err))
+}
+
+function validateResponse(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}
+
+function readResponseAsBlob(response) {
+  return response.blob();
+}
+
+function logError(error) {
+  console.log('Looks like there was a problem:', error);
+}
+
+
+
+// Fetch Image ----------
+function showImage (responseAsBlob) {
+  const imgContainer = document.getElementById('img-container');
+  const imgElm = document.createElement('img')
+  imgContainer.appendChild(imgElm)
+  const imgUrl = URL.createObjectURL(responseAsBlob)
+  imgElm.src= imgUrl
+}
+
+function fetchImage() {
+  fetch('http://localhost:8000/image/e8ba91cb61b4380cf4f09e686fb8cfaf.png')
+  .then(validateResponse) // 2
+  .then(readResponseAsBlob) // 3
+  .then(showImage) // 4
+  .catch(logError);
+}
+const imgButton = document.getElementById('img-btn');
+imgButton.addEventListener('click', fetchImage);
+
+
+
+function getAllImages() {
+    fetch('http://localhost:8000/image/e8d4d5ad5f394a6ec6928aede84f0f42.jpg')
+    .then(res => res.blob())
+    .then(file => {
+    console.log('Database Images', file)
+    var elem = document.createElement('img');
+    elem.setAttribute("src", `${file.filename}`)
+    elem.setAttribute("height", "768");
+    elem.setAttribute("width", "1024");
+    elem.setAttribute("alt", "Flower");
+    document.getElementById("img-div").appendChild("elem");
+    }) 
+    .catch(err => console.log(err))    
+}
+
+        
+</script>
+
+
+
+</body>
+
+</html>
