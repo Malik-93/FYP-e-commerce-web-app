@@ -14,11 +14,9 @@
         Price: <input type="number" id="price"><br />
         Company: <input type="text" id="company">
         Info: <input type="text" id="info"><br />
-        Count: <input type="number" id="count">
-        Total: <input type="number" id="total"><br />
-        inCart: <input type="text" id="incart">
-        <input type="submit" value="Check" />
-    </form><hr />
+        <br />
+    </form>
+    <hr />
     <div>
         <button onclick="addProduct()">Add Product</button>
         <button onclick="getProducts()">Get Products</button><br /><hr />
@@ -26,13 +24,7 @@
         <button onclick="getAllProducts()">Get All Prudcts</button>
         <button onclick="getAllImages()">Get All Images</button>
         <button id="img-btn">Fetch image</button>
-
         <hr>
-        <button onclick="createFile()">Create File</button>
-        <button onclick="getData()">Read File</button>
-        <button onclick="deleteFile()">Delete File</button>
-        <hr>
-        Data from server:
         <div id="demo"></div>
         <hr>
         <div class="container">
@@ -85,13 +77,6 @@
             </div>
         </form>
 
-            <form action="users/dashboard" method="post">
-            <div>
-                <label>Upload File:</label>
-                <input type="file" name="file" />
-            </div>
-            </form>
-
 
     </div>
     <script>
@@ -105,9 +90,6 @@ var options = {
         price: price.value,
         company: company.value,
         info: info.value,
-        count: count.value,
-        total: total.value,
-        inCart: incart.value
     }),
     headers: {
         'Content-Type': 'application/json'
@@ -170,8 +152,6 @@ function logError(error) {
   console.log('Looks like there was a problem:', error);
 }
 
-
-
 // Fetch Image ----------
 function showImage (responseAsBlob) {
   const imgContainer = document.getElementById('img-container');
@@ -182,37 +162,29 @@ function showImage (responseAsBlob) {
 }
 
 function fetchImage() {
-  fetch('http://localhost:8000/image/e8ba91cb61b4380cf4f09e686fb8cfaf.png')
+  fetch('http://localhost:8000/image/9bcbc8897e254b1a879258da164b646e.png')
   .then(validateResponse) // 2
-  .then(readResponseAsBlob) // 3
+  .then(readResponseAsBlob ) // 3
   .then(showImage) // 4
   .catch(logError);
 }
 const imgButton = document.getElementById('img-btn');
 imgButton.addEventListener('click', fetchImage);
 
-
-
 function getAllImages() {
-    fetch('http://localhost:8000/image/e8d4d5ad5f394a6ec6928aede84f0f42.jpg')
-    .then(res => res.blob())
-    .then(file => {
-    console.log('Database Images', file)
-    var elem = document.createElement('img');
-    elem.setAttribute("src", `${file.filename}`)
-    elem.setAttribute("height", "768");
-    elem.setAttribute("width", "1024");
-    elem.setAttribute("alt", "Flower");
-    document.getElementById("img-div").appendChild("elem");
+    fetch('http://localhost:8000/getImages')
+    .then(res => res.json() )
+    .then(images => {
+    console.log('Database Images', images)
+    // var elem = document.createElement('img');
+    // elem.setAttribute("src", `${file.filename}`)
+    // elem.setAttribute("height", "768");
+    // elem.setAttribute("width", "1024");
+    // elem.setAttribute("alt", "Flower");
+    // document.getElementById("img-div").appendChild("elem");
     }) 
     .catch(err => console.log(err))    
-}
-
-        
+}       
 </script>
-
-
-
 </body>
-
 </html>
