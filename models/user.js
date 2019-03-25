@@ -43,13 +43,8 @@ const User = mongoose.model('user', userSchema);
 
 const Product = mongoose.model('myproducts', { 
   title: String, price: Number, company: String, info: String,
-  inCart: Boolean, count: Number, total: Number 
+  count: Number, total: Number, inCart: false
 });
-
-const product = new Product({title:'mens', price: 1000, company: 'Malik Cloth House', 
-info: 'lorem ipsum', inCart: false, count: 0, total: 0})
-
-product.save(()=>{console.log('Product saved Successfully', product)})
 
 // Export the model
 module.exports = {
